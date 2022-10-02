@@ -51,9 +51,13 @@ Load the map and bring up the editor screen. Press the **Tab key** to bring up t
 
 u キーを押しながらマウスホイールでマーキング間を移動します。
 
+パネルはShftキーを押しながらマウスドラッグで移動します。
+
 マーキングは譜面データに保存されます。
 
 Move between markings with the mouse wheel while holding down the u key.
+
+Panels are moved by holding down the Shft key and dragging the mouse.
 
 Markings are saved in the map data.
 # 開発者情報 (Developers)
