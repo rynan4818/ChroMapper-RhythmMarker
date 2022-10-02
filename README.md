@@ -4,6 +4,7 @@ BeatSaberの作譜ツールの[ChroMapper](https://github.com/Caeden117/ChroMapp
 
 Create colored line marks at regular intervals on the grid with [ChroMapper](https://github.com/Caeden117/ChroMapper) in BeatSaber's music composition tool.
 
+![image](https://user-images.githubusercontent.com/14249877/193462676-37273fc4-e85d-4b76-b74d-76fea864661f.png)
 
 # インストール方法 (How to Install)
 
@@ -21,6 +22,7 @@ Create colored line marks at regular intervals on the grid with [ChroMapper](htt
 
 Load the map and bring up the editor screen. Press the **Tab key** to bring up the icon panel on the right side, then press the green icon to open the settings panel below.
 
+![image](https://user-images.githubusercontent.com/14249877/193462702-20c6249c-1e74-4987-95d9-f45a2bba33f5.png)
 
 - Start Beat
     - 開始する拍番号
