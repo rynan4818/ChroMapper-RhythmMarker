@@ -51,7 +51,11 @@ Load the map and bring up the editor screen. Press the **Tab key** to bring up t
 
 u キーを押しながらマウスホイールでマーキング間を移動します。
 
+マーキングは譜面データに保存されます。
+
 Move between markings with the mouse wheel while holding down the u key.
+
+Markings are saved in the map data.
 # 開発者情報 (Developers)
 このプロジェクトをビルドするには、ChroMapperのインストールパスを指定する`ChroMapper-RhythmMarker\ChroMapper-RhythmMarker.csproj.user`ファイルを作成する必要があります。
 
