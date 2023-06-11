@@ -60,6 +60,20 @@ Move between markings with the mouse wheel while holding down the u key.
 Panels are moved by holding down the Shft key and dragging the mouse.
 
 Markings are saved in the map data.
+# 設定ファイルについて (About the configuration file)
+設定ファイルはChroMapperの設定ファイルと同じフォルダ`ユーザ設定フォルダ(Users)\ユーザ名\AppData\LocalLow\BinaryElement\ChroMapper`の`RhythmMarker.json`に保存されます。
+
+The configuration file is saved in `RhythmMarker.json` in the same folder as ChroMapper's configuration file `User Settings Folder(Users)\User Name\AppData\LocalLow\BinaryElement\ChroMapper`.
+
+| 設定項目 (Setting Item) | デフォルト値 (Default Value) | 説明 (Description) |
+|:---|:---|:---|
+| mainMenuUIAnchoredPosX | -50 | 設定パネルのX位置<br>X position in the configuration panel |
+| mainMenuUIAnchoredPosY | -75 | 設定パネルのY位置<br>Y position in the configuration panel |
+| shiftBinding | ＜Keyboard＞/shift | 設定パネル移動のキーバインド<br>Key bindings for setting panel movement |
+| markJumpBinding | ＜Keyboard＞/u | マーク間移動のキーバインド<br>Key bindings for moving between marks |
+
+キーバインドはUnityのInputSystem形式で設定してください。<Br>
+Key bindings should be set in Unity's InputSystem format.
 # 開発者情報 (Developers)
 このプロジェクトをビルドするには、ChroMapperのインストールパスを指定する`ChroMapper-RhythmMarker\ChroMapper-RhythmMarker.csproj.user`ファイルを作成する必要があります。
 
