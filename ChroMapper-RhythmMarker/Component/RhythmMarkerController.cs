@@ -1,4 +1,5 @@
-﻿using ChroMapper_RhythmMarker.Configuration;
+﻿using Beatmap.Base;
+using ChroMapper_RhythmMarker.Configuration;
 using ChroMapper_RhythmMarker.UserInterface;
 using SimpleJSON;
 using System;
@@ -35,7 +36,7 @@ namespace ChroMapper_RhythmMarker.Component
     {
         public List<RhythmMark> rhythmMarks = new List<RhythmMark>();
         private Transform rhythmMarksParent;
-        private BeatSaberMap map;
+        private BaseDifficulty map;
         private AudioTimeSyncController atsc;
         public InputAction _shiftAction;
         public InputAction _MarkJumpAction;
@@ -276,9 +277,9 @@ namespace ChroMapper_RhythmMarker.Component
                     var rhythmMarksOrder = rhythmMarks.OrderBy(x => x.Time);
                     foreach (var mark in rhythmMarksOrder)
                     {
-                        if (mark.Time > atsc.CurrentBeat)
+                        if (mark.Time > atsc.CurrentSongBpmTime)
                         {
-                            atsc.MoveToTimeInBeats(mark.Time);
+                            atsc.MoveToSongBpmTime(mark.Time);
                             break;
                         }
                     }
@@ -288,9 +289,9 @@ namespace ChroMapper_RhythmMarker.Component
                     var rhythmMarksOrder = rhythmMarks.OrderByDescending(x => x.Time);
                     foreach (var mark in rhythmMarksOrder)
                     {
-                        if (mark.Time < atsc.CurrentBeat)
+                        if (mark.Time < atsc.CurrentSongBpmTime)
                         {
-                            atsc.MoveToTimeInBeats(mark.Time);
+                            atsc.MoveToSongBpmTime(mark.Time);
                             break;
                         }
                     }
