@@ -67,6 +67,10 @@
       <HintPath>$(ChroMapperDir)\ChroMapper_Data\Managed\Unity.InputSystem.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="0Harmony">
+      <HintPath>$(ChroMapperDir)\ChroMapper_Data\Managed\0Harmony.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -80,6 +84,8 @@
     <Compile Include="Component\DragWindowController.cs" />
     <Compile Include="Component\RhythmMarkerController.cs" />
     <Compile Include="Configuration\Options.cs" />
+    <Compile Include="HarmonyPatches\V2Difficulty_GetOutputCustomJsonDataPatch.cs" />
+    <Compile Include="HarmonyPatches\V3Difficulty_GetOutputCustomJsonDataPatch.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserInterface\MainMenuUI.cs" />

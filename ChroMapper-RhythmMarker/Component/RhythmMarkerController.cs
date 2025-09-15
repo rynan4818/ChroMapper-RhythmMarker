@@ -80,21 +80,7 @@ namespace ChroMapper_RhythmMarker.Component
             this._scrollAction.started += OnScrollActive;
             this._scrollAction.performed += OnScrollActive;
             this._scrollAction.canceled += OnScrollActive;
-            if (map.CustomData.HasKey("_rhythmMarks"))
-            {
-                var dataNode = map.CustomData["_rhythmMarks"];
-                foreach (JSONNode node in dataNode)
-                {
-                    var time = RetrieveRequiredNode(node, "_time").AsFloat;
-                    Color color;
-                    if (node.HasKey("_color"))
-                        color = RetrieveRequiredNode(node, "_color");
-                    else
-                        color = Color.cyan;
-                    var text = CreateRhythmMark(time, color);
-                    rhythmMarks.Add(new RhythmMark(time, color, text));
-                }
-            }
+            this.LoadCustomData();
         }
         private void Update()
         {
@@ -125,20 +111,46 @@ namespace ChroMapper_RhythmMarker.Component
         {
             this._shiftKeyEnable = context.ReadValueAsButton();
         }
+
+        public void LoadCustomData()
+        {
+            for (var i = rhythmMarks.Count - 1; i >= 0; i--)
+            {
+                RhythmMark rhythmMark = rhythmMarks[i];
+                Destroy(rhythmMark.Text.gameObject);
+                rhythmMarks.Remove(rhythmMark);
+            }
+            rhythmMarks.Clear();
+            JSONNode dataNode;
+            if (map.CustomData.HasKey("rhythmMarks"))
+                dataNode = map.CustomData["rhythmMarks"];
+            else if (map.CustomData.HasKey("_rhythmMarks"))
+                dataNode = map.CustomData["_rhythmMarks"];
+            else
+                return;
+            foreach (JSONNode node in dataNode)
+                {
+                    var time = RetrieveRequiredNode(node, "_time").AsFloat;
+                    Color color;
+                    if (node.HasKey("_color"))
+                        color = RetrieveRequiredNode(node, "_color");
+                    else
+                        color = Color.cyan;
+                    var text = CreateRhythmMark(time, color);
+                    rhythmMarks.Add(new RhythmMark(time, color, text));
+                }
+        }
         public void SaveCustomData()
         {
-            if (!map.MainNode.HasKey("_customData") || map.MainNode["_customData"] is null ||
-                !map.MainNode["_customData"].Children.Any())
-            {
-                map.MainNode["_customData"] = map.CustomData;
-            }
+            if (map.CustomData == null)
+                map.CustomData = new JSONObject();
             var rhythmMarksJSON = new JSONArray();
             foreach (var rhythmMark in rhythmMarks)
                 rhythmMarksJSON.Add(rhythmMark.ConvertToJson());
+            map.CustomData.Remove("_rhythmMarks");
+            map.CustomData.Remove("rhythmMarks");
             if (rhythmMarks.Any())
-                map.MainNode["_customData"]["_rhythmMarks"] = CleanupArray(rhythmMarksJSON);
-            else
-                map.MainNode["_customData"].Remove("_rhythmMarks");
+                map.CustomData["rhythmMarks"] = CleanupArray(rhythmMarksJSON);
         }
         public void SetViewRhythmMark(bool view)
         {
