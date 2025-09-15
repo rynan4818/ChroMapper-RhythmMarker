@@ -1,5 +1,4 @@
-﻿using Beatmap.Base;
-using ChroMapper_RhythmMarker.Configuration;
+﻿using ChroMapper_RhythmMarker.Configuration;
 using ChroMapper_RhythmMarker.UserInterface;
 using SimpleJSON;
 using System;
@@ -36,7 +35,6 @@ namespace ChroMapper_RhythmMarker.Component
     {
         public List<RhythmMark> rhythmMarks = new List<RhythmMark>();
         private Transform rhythmMarksParent;
-        private BaseDifficulty map;
         private AudioTimeSyncController atsc;
         public InputAction _shiftAction;
         public InputAction _MarkJumpAction;
@@ -61,9 +59,9 @@ namespace ChroMapper_RhythmMarker.Component
         {
             var measureLinesCanvas = GameObject.Find("Moveable Grid/Measure Lines/Measure Lines Canvas");
             rhythmMarksParent = measureLinesCanvas.transform;
-            map = BeatSaberSongContainer.Instance.Map;
             atsc = FindObjectOfType<AudioTimeSyncController>();
             EditorScaleController.EditorScaleChangedEvent += OnEditorScaleChange;
+            LoadedDifficultySelectController.LoadedDifficultyChangedEvent += LoadCustomData;
             customStandaloneInputModule = GameObject.Find("EventSystem").GetComponent<CustomStandaloneInputModule>();
             this._shiftAction = new InputAction("ShiftKey", binding: Options.Instance.shiftBinding);
             this._shiftAction.started += OnShiftKey;
@@ -92,6 +90,7 @@ namespace ChroMapper_RhythmMarker.Component
             this._MarkJumpAction.Dispose();
             this._scrollAction.Dispose();
             EditorScaleController.EditorScaleChangedEvent -= OnEditorScaleChange;
+            LoadedDifficultySelectController.LoadedDifficultyChangedEvent -= LoadCustomData;
         }
         public void OnMarkJump(InputAction.CallbackContext context)
         {
@@ -122,6 +121,7 @@ namespace ChroMapper_RhythmMarker.Component
             }
             rhythmMarks.Clear();
             JSONNode dataNode;
+            var map = BeatSaberSongContainer.Instance.Map;
             if (map.CustomData.HasKey("rhythmMarks"))
                 dataNode = map.CustomData["rhythmMarks"];
             else if (map.CustomData.HasKey("_rhythmMarks"))
@@ -142,6 +142,7 @@ namespace ChroMapper_RhythmMarker.Component
         }
         public void SaveCustomData()
         {
+            var map = BeatSaberSongContainer.Instance.Map;
             if (map.CustomData == null)
                 map.CustomData = new JSONObject();
             var rhythmMarksJSON = new JSONArray();
@@ -184,7 +185,6 @@ namespace ChroMapper_RhythmMarker.Component
                 currentBeat += interval;
             }
             SaveCustomData();
-            Debug.Log($"RhythmMarks Size={rhythmMarks.Count()}");
         }
         public void DeleteRhythmMark(float startBeat, float endBeat)
         {
